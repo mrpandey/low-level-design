@@ -1,0 +1,53 @@
+#include <iostream>
+#include <algorithm>
+#include "Board.h"
+
+Board::Board(){}
+
+Board::Board(int size, Piece piece = Piece('-')): size(size) {
+    empty_cell_count = size*size;
+    board = vector<vector<Piece>>(size, vector<Piece>(size, piece));
+}
+
+void Board::Print()
+{
+    for (int i = 0; i < size; i++)
+    {
+        cout << board[i][0].GetPieceType();
+        for (int j = 1; j < size; j++)
+        {
+            cout << " " << board[i][j].GetPieceType();
+        }
+        cout << endl;
+    }
+}
+
+void Board::SetCell(int x, int y, const Piece& piece){
+    x--;
+    y--;
+    if(min(x,y)<0 || max(x,y)>=size || board[x][y].GetPieceType() != '-'){
+        cout << "Invalid Move" << endl;
+        return;
+    }
+    board[x][y] = piece;
+    empty_cell_count--;
+}
+
+Piece Board::GetCell(int x, int y){
+    x--;
+    y--;
+    if(min(x,y)<0 || max(x,y)>=size){
+        cout << "Invalid Cell Coords" << endl;
+        return Piece('-');
+    }
+    return board[x][y];
+}
+
+bool Board::IsFull(){
+    if(!empty_cell_count) return true;
+    return false;
+}
+
+int Board::GetSize(){
+    return size;
+}
