@@ -8,6 +8,6 @@ class Piece {
 public:
     Piece(char);
     char GetPieceType() const;
-    bool operator==(const Piece&);
-    bool operator!=(const Piece&);
+    bool operator==(const Piece&) const;
+    bool operator!=(const Piece&) const;
 };

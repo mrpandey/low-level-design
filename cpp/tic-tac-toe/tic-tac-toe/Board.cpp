@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <stdexcept>
 #include "Board.h"
 
 Board::Board(){}
@@ -25,9 +26,8 @@ void Board::Print()
 void Board::SetCell(int x, int y, const Piece& piece){
     x--;
     y--;
-    if(min(x,y)<0 || max(x,y)>=size || board[x][y].GetPieceType() != '-'){
-        cout << "Invalid Move" << endl;
-        return;
+    if(min(x,y)<0 || max(x,y)>=size || board[x][y].GetPieceType() != '-' || piece.GetPieceType() == '-'){
+        throw logic_error("Invalid Move");
     }
     board[x][y] = piece;
     empty_cell_count--;
@@ -37,8 +37,7 @@ Piece Board::GetCell(int x, int y){
     x--;
     y--;
     if(min(x,y)<0 || max(x,y)>=size){
-        cout << "Invalid Cell Coords" << endl;
-        return Piece('-');
+        throw out_of_range("Cell Coords Out Of Range");
     }
     return board[x][y];
 }

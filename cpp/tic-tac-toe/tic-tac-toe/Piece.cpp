@@ -6,12 +6,12 @@ char Piece::GetPieceType() const{
     return type;
 }
 
-bool Piece::operator==(const Piece& piece){
+bool Piece::operator==(const Piece& piece) const{
     if(type == piece.GetPieceType()) return true;
     return false;
 }
 
-bool Piece::operator!=(const Piece &piece){
+bool Piece::operator!=(const Piece &piece) const{
     if(type != piece.GetPieceType()) return true;
     return false;
 }

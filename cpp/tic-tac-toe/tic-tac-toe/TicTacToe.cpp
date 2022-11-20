@@ -76,7 +76,12 @@ void TicTacToe::MakeMove()
 
     pair<int, int> coords = ParseMove(line);
     int x = coords.first, y = coords.second;
-    board.SetCell(x, y, pieces[current_piece_idx]);
+    try{
+        board.SetCell(x, y, pieces[current_piece_idx]);
+    }
+    catch(logic_error& e){
+        cerr << e.what() << endl;
+    }
     board.Print();
 
     if (currentPlayerWon(x, y))
