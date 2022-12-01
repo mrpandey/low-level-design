@@ -9,6 +9,7 @@
 
 class KeyToParkingLot{
     friend class ParkingService;
+    KeyToParkingLot() = default;
 };
 
 class ParkingLot

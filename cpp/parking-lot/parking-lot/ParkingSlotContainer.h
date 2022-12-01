@@ -9,6 +9,7 @@ using namespace std;
 class KeyToParkingSlotContainer
 {
     friend class ParkingFloor;
+    KeyToParkingSlotContainer() = default;
 };
 
 class ParkingSlotContainer

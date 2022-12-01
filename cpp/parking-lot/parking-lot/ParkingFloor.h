@@ -9,6 +9,7 @@
 class KeyToParkingFloor
 {
     friend class ParkingLot;
+    KeyToParkingFloor() = default;
 };
 
 class ParkingFloor

@@ -5,6 +5,7 @@ using namespace std;
 
 class KeyToParkingSlot{
     friend class ParkingSlotContainer;
+    KeyToParkingSlot() = default;
 };
 
 class ParkingSlot
