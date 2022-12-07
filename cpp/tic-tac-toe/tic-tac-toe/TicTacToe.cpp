@@ -111,7 +111,7 @@ bool TicTacToe::currentPlayerWon(int x, int y)
     {
         for (int j = 2; j <= board_size && ret; j++)
         {
-            if (board.GetCell(x, j - 1) != board.GetCell(x, j))
+            if (board.GetCell(x, j) != piece)
                 ret = false;
         }
         if (ret)
@@ -124,7 +124,7 @@ bool TicTacToe::currentPlayerWon(int x, int y)
         ret = true;
         for (int i = 2; i <= board_size && ret; i++)
         {
-            if (board.GetCell(i - 1, y) != board.GetCell(i,y))
+            if (board.GetCell(i,y) != piece)
                 ret = false;
         }
         if (ret)
@@ -137,7 +137,7 @@ bool TicTacToe::currentPlayerWon(int x, int y)
         ret = true;
         for (int i = 2; i <= board_size && ret; i++)
         {
-            if (board.GetCell(i,i) != board.GetCell(i-1,i-1))
+            if (board.GetCell(i,i) != piece)
             {
                 ret = false;
             }
@@ -151,7 +151,7 @@ bool TicTacToe::currentPlayerWon(int x, int y)
         ret = true;
         for (int i = 2; i <= board_size && ret; i++)
         {
-            if (board.GetCell(i, board_size - i - 1) != board.GetCell(i - 1, board_size - i))
+            if (board.GetCell(i, board_size - i + 1) != piece)
             {
                 ret = false;
             }
