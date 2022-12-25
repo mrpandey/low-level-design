@@ -14,6 +14,6 @@ public:
     Queue();
     ~Queue();
     std::shared_ptr<Topic> createTopic(std::string);
-    void subscribe(std::shared_ptr<Topic>, std::shared_ptr<Subscriber>);
+    void subscribe(std::shared_ptr<Topic>, std::shared_ptr<ISubscriber>);
     void publish(std::shared_ptr<Topic>, Message &);
 };

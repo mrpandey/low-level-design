@@ -10,7 +10,7 @@ std::string Topic::getName() const
     return name;
 }
 
-void Topic::addSubscriber(std::shared_ptr<Subscriber> sub_ptr)
+void Topic::addSubscriber(std::shared_ptr<ISubscriber> sub_ptr)
 {
     auto ts = std::make_shared<TopicSubscriber>(sub_ptr);
     std::lock_guard<std::mutex> lck(sub_mtx);
@@ -20,7 +20,7 @@ void Topic::addSubscriber(std::shared_ptr<Subscriber> sub_ptr)
     }
 }
 
-void Topic::removeSubscriber(std::shared_ptr<Subscriber> sub_ptr)
+void Topic::removeSubscriber(std::shared_ptr<ISubscriber> sub_ptr)
 {
     auto ts = std::make_shared<TopicSubscriber>(sub_ptr);
     std::lock_guard<std::mutex> lck(sub_mtx);

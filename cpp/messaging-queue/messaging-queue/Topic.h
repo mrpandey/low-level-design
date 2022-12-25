@@ -25,8 +25,8 @@ private:
 public:
     Topic(std::string);
     std::string getName() const;
-    void addSubscriber(std::shared_ptr<Subscriber>);
-    void removeSubscriber(std::shared_ptr<Subscriber>);
+    void addSubscriber(std::shared_ptr<ISubscriber>);
+    void removeSubscriber(std::shared_ptr<ISubscriber>);
     void addMessage(Message, boost::asio::thread_pool &);
 };
 

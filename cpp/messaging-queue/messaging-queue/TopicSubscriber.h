@@ -9,12 +9,12 @@ class TopicSubscriber
 {
 private:
     std::atomic<int> offset;
-    std::shared_ptr<Subscriber> sub_ptr;
+    std::shared_ptr<ISubscriber> sub_ptr;
 
 public:
-    TopicSubscriber(std::shared_ptr<Subscriber>, int offset = 0);
+    TopicSubscriber(std::shared_ptr<ISubscriber>, int offset = 0);
     int getOffset() const;
-    std::shared_ptr<Subscriber> getSubscriber() const;
+    std::shared_ptr<ISubscriber> getSubscriber() const;
     void setOffset(int);
     void incrementOffset();
 };

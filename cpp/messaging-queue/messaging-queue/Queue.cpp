@@ -23,7 +23,7 @@ std::shared_ptr<Topic> Queue::createTopic(std::string topic_name)
     return *topic_it;
 }
 
-void Queue::subscribe(std::shared_ptr<Topic> topic_ptr, std::shared_ptr<Subscriber> subscriber)
+void Queue::subscribe(std::shared_ptr<Topic> topic_ptr, std::shared_ptr<ISubscriber> subscriber)
 {
     if(topics.find(topic_ptr) != topics.end()){
         topic_ptr->addSubscriber(subscriber);
