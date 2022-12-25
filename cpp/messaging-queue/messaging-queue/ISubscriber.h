@@ -6,4 +6,5 @@ class ISubscriber {
 public:
     virtual std::string getId() const = 0;
     virtual void consumeMessage(Message msg) = 0;
+    virtual ~ISubscriber(){}
 };
