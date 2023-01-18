@@ -35,11 +35,12 @@ void printKeyValues(KeyValueStore<string, string> &store, std::vector<string> ke
     {
         try
         {
-            std::cout << k << ": " << store.get(k) << std::endl;
+            string val = store.get(k);
+            std::cout << k << ": " << val << std::endl;
         }
         catch (std::exception &e)
         {
-            std::cout << e.what() << std::endl;
+            std::cout << "Error while printing key " << k << ": " << e.what() << std::endl;
         }
     }
 }
@@ -47,27 +48,40 @@ void printKeyValues(KeyValueStore<string, string> &store, std::vector<string> ke
 int main()
 {
     KeyValueStoreFactory<string, string> key_value_factory;
-    auto key_val_store = key_value_factory.getDefaultStore(3);
+    
+    auto lru_store = key_value_factory.getDefaultStore(3);
 
-    std::thread t1([&key_val_store](){
-        addKey(key_val_store, "key1", "val1");
-        addKey(key_val_store, "key2", "val2");
-        addKey(key_val_store, "key3", "val3");
+    std::thread t1([&lru_store](){
+        addKey(lru_store, "key1", "val1");
+        addKey(lru_store, "key2", "val2");
+        addKey(lru_store, "key3", "val3");
     });
 
-    std::thread t2([&key_val_store](){
-        addKey(key_val_store, "key2", "val22");
-        addKey(key_val_store, "key3", "val33");
-        removeKey(key_val_store, "key1");   // evict key1 from store
+    std::thread t2([&lru_store](){
+        addKey(lru_store, "key2", "val22");
+        addKey(lru_store, "key3", "val33");
+        removeKey(lru_store, "key1");
     });
 
     t1.join();
     t2.join();
 
-    printKeyValues(key_val_store, {"key1", "key2", "key3"});
+    printKeyValues(lru_store, {"key1", "key2", "key3"});
 
-    addKey(key_val_store, "key4", "val4");  // this should evict key1 from policy
-    addKey(key_val_store, "key5", "val5");  // this should evict key2 from policy and store 
+    addKey(lru_store, "key4", "val4");
+    addKey(lru_store, "key5", "val5");  // this should evict key2 from policy and store 
 
-    printKeyValues(key_val_store, {"key2", "key3", "key4", "key5"});
+    printKeyValues(lru_store, {"key2", "key3", "key4", "key5"});
+
+
+    auto lfu_store = key_value_factory.getLFUStore(2);
+
+    addKey(lfu_store, "lk1", "lval1");
+    addKey(lfu_store, "lk2", "lval2");
+
+    addKey(lfu_store, "lk2", "lval3");
+    addKey(lfu_store, "lk1", "lval4");
+
+    addKey(lfu_store, "lk3", "lval5");  // lk2 should be evicted
+    printKeyValues(lfu_store, {"lk1", "lk2"});
 }

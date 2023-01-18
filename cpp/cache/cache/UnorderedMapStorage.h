@@ -24,7 +24,8 @@ public:
 template <typename K, typename V>
 inline UnorderedMapStorage<K, V>::UnorderedMapStorage(const int capacity) : capacity(capacity)
 {
-    if(capacity<=0){
+    if (capacity <= 0)
+    {
         throw std::invalid_argument("Capacity of storage must be positive.");
     }
 }
@@ -46,7 +47,7 @@ inline V UnorderedMapStorage<K, V>::get(const K &key) const
 template <typename K, typename V>
 inline void UnorderedMapStorage<K, V>::put(const K &key, const V &value)
 {
-    if (storage.size() == capacity)
+    if (storage.find(key) == storage.end() && storage.size() == capacity)
     {
         throw std::length_error("Storage is full. Cannot add new key.");
     }
