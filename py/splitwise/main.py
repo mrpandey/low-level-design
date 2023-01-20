@@ -1,31 +1,36 @@
 from typing import List
 
-from app.ledger import Person, PersonalBalanceSummary
+from app.ledger import Person, PersonLedger
 from app.expense import (
-    ExpenseManager,
     PercentExpense,
     EqualExpense,
     ExactExpense,
     PercentShare,
     ExactShare,
 )
+from app.expense_manager import ExpenseManager
 
 # TODO: handle concurrency
 # TODO: add tests
-# TODO: simplify expense
-# QUESTION: how much modification will be needed to support groups
+# TODO: simplify expense: only in a group
+# QUESTION: how much modification will be needed to support list expenses, groups, balance settlement
+# balance settlement: add method in ExpenseManager which takes two person and adds the appropirate amount to ledger
+# list expenses: store expenses in a list in ledger, we can add circular reference to each other between expense and splits
+# groups: store groups in ExpenseManager, each group will have its own ledger with a restriction that an expense can only be shared between the group members
 
 
 def print_person_balance(manager: ExpenseManager, person: Person) -> None:
-    pbs: PersonalBalanceSummary = manager.get_person_balance(person)
-    amount_owed = pbs.net_balance
+    person_ledger: PersonLedger = manager.get_person_ledger(person)
+    amount_owed = person_ledger.net_balance
 
     if amount_owed < 0:
-        print(f"{pbs.person.name} owes {-amount_owed} in total.")
+        print(f"{person_ledger.person.name} owes {-amount_owed} in total.")
     else:
-        print(f"{pbs.person.name} is owed {amount_owed} in total.")
+        print(f"{person_ledger.person.name} is owed {amount_owed} in total.")
 
-    for other_person, amount in pbs.balances.items():
+    for other_person, amount in person_ledger.balances.items():
+        if amount == 0:
+            continue
         if amount >= 0:
             print(f"Owed {amount} by {other_person.name}")
         else:
