@@ -9,3 +9,4 @@
 **Implementations in Python**
 1. [Meeting Booking](https://github.com/mrpandey/low-level-design/tree/main/py/meeting-booking)
 2. [Splitwise](https://github.com/mrpandey/low-level-design/tree/main/py/splitwise) implementation according to [this](https://workat.tech/machine-coding/practice/splitwise-problem-0kp2yneec2q2) specification.
+3. [Cab Booking](https://github.com/mrpandey/low-level-design/tree/main/py/cab-booking) implementation according to [this](https://github.com/anomaly2104/lld-cab-booking-ola-uber-grab-lyft/blob/master/problem-statement.md) specification.
